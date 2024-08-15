@@ -6,7 +6,7 @@ public class moveInMaze {
         int totalPath = findNumberOfPath(0,0,n,m);
         System.out.println(totalPath);
     }
-
+//
     private static int findNumberOfPath(int startN, int startM, int EndN, int EndM) {
         if (startM == EndM-1 && startN == EndN-1 ){
             return 1;
