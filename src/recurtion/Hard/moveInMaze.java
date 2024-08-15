@@ -11,14 +11,16 @@ public class moveInMaze {
         if (startM == EndM-1 && startN == EndN-1 ){
             return 1;
         }
-        if (startM == EndM || startN == EndN){
+        /*if (startM == EndM || startN == EndN){
             return 0;
+        }*/
+        int DownStep=0,RightStep=0;
+        if (startN+1 < EndN && startM+1 <EndM) {
+            DownStep = findNumberOfPath(startN + 1, startM, EndN, EndM);
         }
-        if (startN+1 < EndN) {
-            int DownStep = findNumberOfPath(startN + 1, startM, EndN, EndM);
+        if (startM+1 <EndM) {
+            RightStep = findNumberOfPath(startN, startM + 1, EndN, EndM);
         }
-        int RightStep = findNumberOfPath(startN,startM+1,EndN,EndM);
-
         return  DownStep+RightStep;
     }
 }
