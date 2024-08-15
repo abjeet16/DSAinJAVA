@@ -15,7 +15,7 @@ public class moveInMaze {
             return 0;
         }*/
         int DownStep=0,RightStep=0;
-        if (startN+1 < EndN && startM+1 <EndM) {
+        if (startN+1 < EndN) {
             DownStep = findNumberOfPath(startN + 1, startM, EndN, EndM);
         }
         if (startM+1 <EndM) {
