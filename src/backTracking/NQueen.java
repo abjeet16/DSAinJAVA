@@ -54,38 +54,20 @@ public class NQueen {
     }
 
     private static boolean isSafe(char[][] board, int row, int column) {
-        //check verticals
-        for (int i = 0 ; i <board.length;i++){
-            if (board[i][column]=='Q'){
-                return false;
-            }
-        }
         //check horizontal
-        for (int i = 0;i<board.length;i++){
+        for (int i = 0;i < board.length;i++){
             if (board[row][i]=='Q'){
                 return false;
             }
         }
         //upper left
-        for (int i = row,j=column;i>0&&j>0;i--,j--){
-            if (board[i][j]=='Q'){
-                return false;
-            }
-        }
-        //lower right
-        for (int i = row,j=column;i<board.length && j<board.length;i++,j++){
-            if (board[i][j]=='Q'){
-                return false;
-            }
-        }
-        //check upper right
-        for (int i = row,j=column;i>0&&j<board.length;i--,j++){
+        for (int i = row,j=column;i>=0&&j>=0;i--,j--){
             if (board[i][j]=='Q'){
                 return false;
             }
         }
         //lower left
-        for (int i = row,j=column;i<board.length&&j>0;i++,j--){
+        for (int i = row,j=column;i<board.length&&j>=0;i++,j--){
             if (board[i][j]=='Q'){
                 return false;
             }
