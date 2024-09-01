@@ -1,56 +1,35 @@
-package backTracking;
+package recurtion.backTracking;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NQueen {
+public class NQueen2 {
     public static void main(String[] args) {
         int n = 4; // Change this value for a different board size
-        List<List<String>> solutions = solveNQueens(n);
-        for (List<String> solution : solutions) {
-            for (String row : solution) {
-                System.out.println(row);
-            }
-            System.out.println();
-        }
+        System.out.println(solveNQueens(n));
     }
 
-    public static List<List<String>> solveNQueens(int n) {
+    public static int solveNQueens(int n) {
         List<List<String>> solutions = new ArrayList<>();
         char[][] board = new char[n][n];
-        helper(board,solutions,0);
-        return solutions;
+        int count = helper(board,solutions,0);
+        return count;
     }
 
-    private static void helper(char[][] board, List<List<String>> solutions, int column) {
+    private static int helper(char[][] board, List<List<String>> solutions, int column) {
         if (column == board.length){
-            saveBoard(board,solutions);
-            return;
+            return 1;
         }
+        int count = 0;
         for (int row = 0 ; row < board.length;row++){
             if (isSafe(board,row,column)){
                 board[row][column]='Q';
-                helper(board,solutions,column+1);
+                count += helper(board,solutions,column+1);
                 //if the solution goes wrong in future
                 board[row][column]='.';
             }
         }
-    }
-
-    private static void saveBoard(char[][] board, List<List<String>> solutions) {
-        StringBuilder row ;
-        List<String> newBoard = new ArrayList<>();
-        for (int i = 0 ; i < board.length;i++){
-            row = new StringBuilder();
-            for (int j = 0 ; j < board.length;j++){
-                if (board[i][j]=='Q')
-                    row.append('Q');
-                else
-                    row.append('.');
-            }
-            newBoard.add(row.toString());
-        }
-        solutions.add(newBoard);
+        return count;
     }
 
     private static boolean isSafe(char[][] board, int row, int column) {
@@ -75,4 +54,3 @@ public class NQueen {
         return true;
     }
 }
-

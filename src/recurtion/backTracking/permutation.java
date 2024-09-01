@@ -1,4 +1,4 @@
-package backTracking;
+package recurtion.backTracking;
 
 public class permutation {
     public static void main(String[] args) {
