@@ -1,8 +1,5 @@
 package recurtion.backTracking;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NQueen2 {
     public static void main(String[] args) {
         int n = 4; // Change this value for a different board size
@@ -10,13 +7,12 @@ public class NQueen2 {
     }
 
     public static int solveNQueens(int n) {
-        List<List<String>> solutions = new ArrayList<>();
         char[][] board = new char[n][n];
-        int count = helper(board,solutions,0);
+        int count = helper(board,0);
         return count;
     }
 
-    private static int helper(char[][] board, List<List<String>> solutions, int column) {
+    private static int helper(char[][] board, int column) {
         if (column == board.length){
             return 1;
         }
@@ -24,7 +20,7 @@ public class NQueen2 {
         for (int row = 0 ; row < board.length;row++){
             if (isSafe(board,row,column)){
                 board[row][column]='Q';
-                count += helper(board,solutions,column+1);
+                count += helper(board,column+1);
                 //if the solution goes wrong in future
                 board[row][column]='.';
             }
