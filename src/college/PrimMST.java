@@ -3,10 +3,10 @@ package college;
 import java.util.Arrays;
 
 class PrimMST {
-    private static final int INF = 9999999;
+    private static final int INF = 999999999;
 
     public void Prim(int[][] graph, int vertices) {
-        int edgesSelected = 0;
+        int edgesSelected = 0;//total number of edges which are already done
         int totalCost = 0;
         boolean[] selected = new boolean[vertices];
         Arrays.fill(selected, false);
@@ -15,11 +15,10 @@ class PrimMST {
         System.out.println("Edge : Weight");
 
         while (edgesSelected < vertices - 1) {
-            int min = INF;
-            int x = -1; // Start node of the selected edge
-            int y = -1; // End node of the selected edge
+            int min =INF;
+            int x = -1,y = -1; // Start node of the selected edge // End node of the selected edge
 
-            for (int i = 0; i < vertices; i++) {
+            for (int i = 0; i < selected.length; i++) {
                 if (selected[i]) { // If node i is already in MST
                     for (int j = 0; j < vertices; j++) {
                         if (!selected[j] && graph[i][j] != 0) { // If node j is not in MST and has an edge with i
@@ -32,9 +31,8 @@ class PrimMST {
                     }
                 }
             }
-
-            System.out.println(x + " - " + y + " :  " + graph[x][y]);
-            totalCost += graph[x][y];
+            System.out.println(x + " - " + y + " :  " + min);//graph[x][y]);
+            totalCost += min;//graph[x][y];
             selected[y] = true;
             edgesSelected++;
         }
@@ -46,7 +44,7 @@ class PrimMST {
         PrimMST g = new PrimMST();
         int vertices = 5;
         int[][] graph = {
-                { 0, 9, 75, 0, 0 },
+                { 0,9, 75, 0, 0 },
                 { 9, 0, 95, 19, 42 },
                 { 75, 95, 0, 51, 66 },
                 { 0, 19, 51, 0, 31 },

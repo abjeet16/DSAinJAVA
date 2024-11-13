@@ -3,8 +3,8 @@ package college;
 import java.util.*;
 
 public class BFS_DFS {
-    private int vertices; // Number of vertices in the graph
-    private LinkedList<Integer>[] adjList; // Adjacency list to represent the graph
+    private final int vertices; // Number of vertices in the graph
+    private final LinkedList<Integer>[] adjList; // Adjacency list to represent the graph
 
     // Constructor to initialize the graph with a specified number of vertices
     public BFS_DFS(int vertices) {
