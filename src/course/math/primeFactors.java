@@ -1,4 +1,4 @@
-package course;
+package course.math;
 
 public class primeFactors {
     public static void main(String[] args) {

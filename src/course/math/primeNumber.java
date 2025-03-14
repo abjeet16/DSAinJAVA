@@ -1,7 +1,4 @@
-package course;
-
-import java.time.Duration;
-import java.time.Instant;
+package course.math;
 
 public class primeNumber {
     public static void main(String[] args) {

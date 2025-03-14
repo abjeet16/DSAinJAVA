@@ -1,4 +1,4 @@
-package course;
+package course.math;
 
 import java.math.BigInteger;
 import java.time.Duration;

@@ -1,4 +1,4 @@
-package course;
+package course.math;
 
 public class divisorsOfNumber {
     public static void main(String[] args) {
