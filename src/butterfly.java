@@ -2,7 +2,8 @@
 public class butterfly {
     public static void main(String[] args) {
         int size = 5;
-        butterfly(size);
+        //butterfly(size);
+        mybutterfly(size);
     }
     static void butterfly(int size){
         for (int i = 1 ; i <= size ; i++){
@@ -29,6 +30,40 @@ public class butterfly {
                 System.out.print("  ");
             }
             for (int j = 0;j<i ; j++){
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+    static void mybutterfly(int size){
+        for (int i = 0;i<size;i++){
+            for (int j = 0;j<size;j++){
+                if (j<=i){
+                    System.out.print("* ");
+                }else{
+                    System.out.print("  ");
+                }
+            }
+            for (int j = size-1;j>=0;j--){
+                if (j>i){
+                    System.out.print("  ");
+                }else{
+                    System.out.print("* ");
+                }
+            }
+            System.out.println();
+        }
+        for (int i = 0;i<size;i++){
+            for (int j = size-i-1;j>=0;j--){
+                System.out.print("* ");
+            }
+            for (int j = 0;j<i;j++){
+                System.out.print("  ");
+            }
+            for (int j = 0;j<i;j++){
+                System.out.print("  ");
+            }
+            for (int j = size-i-1;j>=0;j--){
                 System.out.print("* ");
             }
             System.out.println();
