@@ -2,9 +2,10 @@ package course.recursion;
 
 public class RopeCutting {
     public static void main(String[] args) {
-        int[] cost = {12, 9, 11,2};
+        int[] cost = {12,11};
         int ropeSize = 23;
         int maxPieces = cuttingRope(cost, ropeSize);
+        System.out.println();
         System.out.println("Maximum number of pieces: " + maxPieces);
     }
 
@@ -15,6 +16,7 @@ public class RopeCutting {
         int max = -1;
         for (int i = 0; i < cost.length; i++) {
             int res = cuttingRope(cost, ropeSize - cost[i]);
+            System.out.print(res+" ");
             if (res != -1) {
                 max = Math.max(max, res + 1);
             }
