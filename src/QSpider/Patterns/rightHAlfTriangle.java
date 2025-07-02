@@ -11,6 +11,7 @@ public class rightHAlfTriangle {
         rightHalfOddEven0And1(6);
         rightHalfRowOddEven0And1(6);
         rightHalfRow1StartThan0(6);
+        rightHalfNumAsc0to9(6);
     }
     /**
                  *
@@ -207,5 +208,27 @@ public class rightHAlfTriangle {
             System.out.println();
         }
     }
-
+    /**
+     *           1
+     *         2 3
+     *       4 5 6
+     *     7 8 9 1
+     *   2 3 4 5 6
+     * 7 8 9 1 2 3
+     * */
+    static void rightHalfNumAsc0to9(int size){
+        int num = 1;
+        for (int i = 1 ; i <= size ; i ++){
+            for (int j = 1 ; j <= size ; j++){
+                if (j <= size- i){
+                    System.out.print("  ");
+                }else {
+                    System.out.print(num++ + " ");
+                    if (num==10)
+                        num = 1;
+                }
+            }
+            System.out.println();
+        }
+    }
 }

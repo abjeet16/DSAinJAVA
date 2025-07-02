@@ -1,4 +1,4 @@
-package QSpider.Patterns;
+package QSpider.Assignment;
 
 public class ass01_07_25 {
     public static void main(String[] args) {
