@@ -346,4 +346,6 @@ public class pyramid {
             System.out.println();
         }
     }
+
+
 }
