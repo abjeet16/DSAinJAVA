@@ -1,6 +1,6 @@
 package QSpider.Patterns;
 
-public class halfButterFly {
+public class ButterFly {
     public static void main(String[] args) {
         int size = 7;
         starButterFly(size);
@@ -8,6 +8,7 @@ public class halfButterFly {
         topToBottomButterFly(size);
         horizontalButterFly(size);
         pattern1(size);
+        pattern2(size);
     }
 
     /**
@@ -185,6 +186,32 @@ public class halfButterFly {
                 System.out.print("* ");
             }
             space--;
+            System.out.println();
+        }
+    }
+
+    /**
+     * * * * * * * *
+     * _ * * * * * * *
+     * _ _ * * * * * * *
+     * _ _ _ * * * * * * *
+     * _ _ _ _ * * * * * * *
+     * _ _ _ _ _ * * * * * * *
+     * _ _ _ _ _ _ * * * * * * *
+     * @param n
+     */
+    static void pattern2(int n){
+        System.out.println();
+        System.out.println("-----------pattern2-----------");
+        int space = 0;
+        for (int i = 0; i < n ; i ++){
+            for (int j = 0 ; j < space ; j++) {
+                System.out.print("_ ");
+            }
+            for (int j = 0 ; j < n; j++){
+                System.out.print("* ");
+            }
+            space++;
             System.out.println();
         }
     }
