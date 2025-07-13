@@ -1,4 +1,4 @@
-package QSpider.Patterns;
+package QSpider.JavaProgramming.Patterns;
 
 public class rightHAlfTriangle {
     public static void main(String[] args) {

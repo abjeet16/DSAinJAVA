@@ -1,4 +1,4 @@
-package QSpider.Assignment;
+package QSpider.JavaProgramming.Assignment;
 
 public class ass09_07_25 {
     public static void main(String[] args) {

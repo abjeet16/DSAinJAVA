@@ -3,7 +3,7 @@ package course.math;
 public class primeNumber {
     public static void main(String[] args) {
         System.out.println(isPrime1(200));
-        System.out.println(isPrime2(49));
+        System.out.println(isPrime2(11));
     }
     static boolean isPrime1(int n){
         for(int i=2;i*i<n;i++){
