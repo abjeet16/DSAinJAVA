@@ -50,27 +50,23 @@ public class class10_07_25 {
         }
         System.out.println("sum of even is "+sumEven+"sum of odd is "+sumOdd);
     }
-
     private static void fibonacci(int count, int num1, int num2) {
         if (count==10)
             return;
         System.out.print(num1+" , ");
         fibonacci(count+1,num2,num1+num2);
     }
-
     private static int askInt(){
         Scanner scan = new Scanner(System.in);
         System.out.println("enter the number");
         return scan.nextInt();
     }
-
-    private static int factorial(int num){
+    static int factorial(int num){
         if (num==1) {
             return 1;
         }
         return num*factorial(num-1);
     }
-
     private static void printPrimeNumberFrom1To1000() {
         for (int num = 2;num<1000;num++){
             if (num==2||num==3) {
@@ -88,14 +84,7 @@ public class class10_07_25 {
                 System.out.println(num);
         }
     }
-
-    private static boolean checkPrimeOrNot() {
-        //2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
-        System.out.println();
-        System.out.println("----------------------------countNumberOfDegitInaNumber------------------------");
-        Scanner sc = new Scanner(System.in);
-        System.out.println("enter the number");
-        int num = sc.nextInt();
+    static boolean checkPrimeOrNot(int num) {
         if (num==2||num==3)
             return true;
         else if (num%2==0||num%3==0)
@@ -105,14 +94,7 @@ public class class10_07_25 {
                 return false;
         return true;
     }
-
-
-    private static void revOfDigitOfANumber() {
-        System.out.println();
-        System.out.println("----------------------------countNumberOfDegitInaNumber------------------------");
-        Scanner sc = new Scanner(System.in);
-        System.out.println("enter the number");
-        int i = sc.nextInt();
+     static int revOfDigitOfANumber(int i) {
         int rev = 0;
         while (i!=0){
             //567%10 = 7
@@ -122,7 +104,7 @@ public class class10_07_25 {
             //567/10 = 56
             i/=10;
         }
-        System.out.println("Reverse of number is "+rev);
+        return rev;
     }
     private static void checkPalindrome() {
         System.out.println();

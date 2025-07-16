@@ -4,6 +4,7 @@ public class stockProfit {
     public static void main(String[] args) {
         int arr[] = {2,10,4,5,1,30,20,40};
         profit(arr);
+        myway(arr);
     }
 
     private static void myway(int[] prices) {
