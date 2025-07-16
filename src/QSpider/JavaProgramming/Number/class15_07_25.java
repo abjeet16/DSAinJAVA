@@ -60,13 +60,12 @@ public class class15_07_25 {
             currRoot=result;
         }
     }
-    private static void findSquareRoot(double num) {
+    static double findSquareRoot(double num) {
         double currRoot = num / 2;
         while (true){
             double root = (currRoot + num/currRoot)/2;
             if (currRoot==root){
-                System.out.println(num+"^2 "+root);
-                break;
+                return currRoot;
             }
             currRoot=root;
         }
