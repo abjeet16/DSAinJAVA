@@ -22,9 +22,6 @@ public class class16_07_25 {
          * to check a year is a leap year
          */
         //checkLeapYear(num);
-        /**
-         * 
-         */
     }
 
     private static void checkLeapYear(int num) {

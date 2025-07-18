@@ -1,5 +1,7 @@
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class test {
     public static void main(String[] args) {

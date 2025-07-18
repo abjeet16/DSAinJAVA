@@ -18,9 +18,7 @@ public class class15_07_25 {
          * to check emirp number
          */
         //checkEmirp(num);
-        /**
-         *
-         */
+
     }
 
     private static void checkEmirp(int num) {
