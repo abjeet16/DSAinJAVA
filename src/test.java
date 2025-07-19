@@ -41,8 +41,49 @@ public class test {
             if (it.next().equals("A"))
                 it.remove();
         }*/
-        for (String el:list)
+        /*for (String el:list)
             list.remove(el);
-        System.out.println(list);
+        System.out.println(list);*/
+
+        /*Thread t1 = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Thread 1: " + i);
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Thread 2: " + i);
+            }
+        });
+
+        t1.start();
+        t2.start();*/
+
+        /*Runable obj = new Runable();
+        Thread t = new Thread(obj);
+        t.start();*/
+
+        Thread t1 = new MyThread(); // NEW
+        System.out.println("State: " + t1.getState()); // NEW
+        t1.start(); // RUNNABLE
+        System.out.println("State after start: " + t1.getState()); // RUNNABLE or RUNNING
+
+    }
+    static class Runable implements Runnable{
+        public void run() {
+            for (int i = 0 ; i < 5 ; i++){
+                System.out.println(i);
+            }
+        }
+    }
+    static class MyThread extends Thread {
+        public void run() {
+            System.out.println("Running...");
+            try {
+                Thread.sleep(500); // moves to Timed Waiting
+            } catch (InterruptedException e) {}
+            System.out.println("Finished.");
+        }
     }
 }
