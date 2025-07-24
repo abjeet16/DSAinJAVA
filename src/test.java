@@ -29,11 +29,11 @@ public class test {
         map.put("FB", "Value1");  // hash = 2236
         map.put("Ea", "Value2");  // hash = 2236 —> same bucket!
         System.out.println(map.get("Ea"));*/
-
+        /*
         //List<String> list = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F"));
         CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F"));
 
-        /*for (String lang : list) {
+        for (String lang : list) {
             list.remove(lang);  // ❌ Will almost always throw ConcurrentModificationException here
         }*/
         /*Iterator<String> it = list.iterator();
@@ -64,10 +64,11 @@ public class test {
         Thread t = new Thread(obj);
         t.start();*/
 
-        Thread t1 = new MyThread(); // NEW
+        /*Thread t1 = new MyThread(); // NEW
         System.out.println("State: " + t1.getState()); // NEW
         t1.start(); // RUNNABLE
-        System.out.println("State after start: " + t1.getState()); // RUNNABLE or RUNNING
+        System.out.println("State after start: " + t1.getState()); // RUNNABLE or RUNNING*/
+        ArrayList<Integer> list = new ArrayList<>(List.of(1,2,3,46,7));
 
     }
     static class Runable implements Runnable{
