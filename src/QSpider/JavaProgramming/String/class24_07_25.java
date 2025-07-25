@@ -13,7 +13,7 @@ public class class24_07_25 {
         /**
          *
          */
-        checkPalString("abjajba");
+        //checkPalString("abjajba");
     }
 
     private static void checkPalString(String string) {
