@@ -20,7 +20,7 @@ public class class17_07_25 {
         printArr(arr);
     }
 
-    private static void printArr(int[] arr) {
+    public static void printArr(int[] arr) {
         for (int el : arr)
             System.out.print(el+" ");
     }

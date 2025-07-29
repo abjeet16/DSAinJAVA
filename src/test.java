@@ -68,8 +68,23 @@ public class test {
         System.out.println("State: " + t1.getState()); // NEW
         t1.start(); // RUNNABLE
         System.out.println("State after start: " + t1.getState()); // RUNNABLE or RUNNING*/
-        ArrayList<Integer> list = new ArrayList<>(List.of(1,2,3,46,7));
+        //ArrayList<Integer> list = new ArrayList<>(List.of(1,2,3,46,7));
+        /*try {
+            int a=6/0;
+        } catch (Exception e){
+            throw new Exception("asca");
+        }*/
 
+        try {
+            throw new CustomException("simply");
+        }catch (CustomException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    static class CustomException extends Exception{
+        CustomException(String message){
+            super(message);
+        }
     }
     static class Runable implements Runnable{
         public void run() {
