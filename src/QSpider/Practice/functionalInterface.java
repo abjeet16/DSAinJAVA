@@ -1,6 +1,6 @@
-package Practice;
+package QSpider.Practice;
 
-public class functionalInerface {
+public class functionalInterface {
     public static void main(String[] args) {
         Functional functional = (num1,num2)->{
             System.out.println(num1+num2);

@@ -1,12 +1,16 @@
-package Practice;
+package QSpider.Practice;
 
-public class ObjectClass {
+public class ObjectClass implements Cloneable{
     private int id;
     private String name;
 
     ObjectClass(int id , String name){
         this.name=name;
         this.id = id;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

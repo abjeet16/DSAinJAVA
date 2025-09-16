@@ -1,4 +1,4 @@
-package Practice;
+package QSpider.Practice;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,10 +15,10 @@ public class Exceptions {
         try {
             fileReader = new FileReader("/random");
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
 
-        //unchecked
+        //unchecked (need not to be checked but can be checked)
         int num = 6/0;
 
         int num2 = 50;

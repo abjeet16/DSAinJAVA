@@ -1,4 +1,4 @@
-package course.array.mid;
+package course.array.sortedArray;
 
 public class BinarySearch {
     public static void main(String[] args) {
@@ -12,14 +12,34 @@ public class BinarySearch {
         //System.out.println(binaryCountOfOccurance(arr,element));
         //System.out.println(sqaureRoot(25));
 
-        int[] arr1 = new int[2000];  // Simulating an infinite sorted array
+        int[] peekArr = {80,70,90,80,70,60,50,40,30,20,10,0};
+        int peekIndex = peekElement(peekArr);
+        System.out.println(peekArr[peekIndex]+"("+peekIndex+")");
+
+        /*int[] arr1 = new int[2000];  // Simulating an infinite sorted array
         for (int i = 0; i < arr.length; i++) {
             arr1[i] = i * 2;  // Fill with even numbers: 0, 2, 4, 6, 8, ...
         }
         int elementToSearch = 16;  // You can change this value
-        System.out.println(searchInInfinityArray(arr1,elementToSearch));
+        System.out.println(searchInInfinityArray(arr1,elementToSearch));*/
     }
 
+    static int peekElement(int[] arr){
+        int start = 0;
+        int end = arr.length;
+        while (start<end) {
+            int mid = (start+end)/ 2;
+            if ((mid==0||arr[mid] >arr[mid-1])&&(mid==arr.length-1||arr[mid]>arr[mid+1]))
+                return mid;
+            else if (arr[mid] < arr[mid+1] ) {
+                start = mid+1;
+            }
+            else {
+                end = mid-1;
+            }
+        }
+        return -1;
+    }
     private static int searchInInfinityArray(int[] arr, int element) {
         int i = 1;
         while (arr[i]<element){
