@@ -7,42 +7,34 @@ public class SpiralMatrix {
         List<Integer> ans = new ArrayList<>();
         int m = matrix.length, n = matrix[0].length;
 
-        int top = 0, bottom = m - 1;
-        int left = 0, right = n - 1;
+        int sRow = 0, eRow = m - 1;
+        int sCol = 0, eCol = n - 1;
 
-        while (top <= bottom && left <= right) {
-            // 1) left -> right
-            for (int j = left; j <= right; j++)
-                ans.add(matrix[top][j]);
-            top++; // shrink top row
-
-            // 2) top -> bottom
-            for (int i = top; i <= bottom; i++)
-                ans.add(matrix[i][right]);
-            right--; // shrink right col
-
-            // 3) right -> left (only if rows remain)
-            if (top <= bottom) {
-                for (int j = right; j >= left; j--)
-                    ans.add(matrix[bottom][j]);
-                bottom--; // shrink bottom row
-            }
-
-            // 4) bottom -> top (only if cols remain)
-            if (left <= right) {
-                for (int i = bottom; i >= top; i--)
-                    ans.add(matrix[i][left]);
-                left++; // shrink left col
-            }
+        while (sRow<=eRow&&sCol<=eCol){
+            for (int i = sCol ; i <= eCol ; i++)
+                ans.add(matrix[sRow][i]);
+            sRow++;
+            for (int i = sRow;i<=eRow;i++)
+                ans.add(matrix[i][eCol]);
+            eCol--;
+            if (sRow<=eRow)
+                for (int i = eCol;i>=sCol;i--)
+                    ans.add(matrix[eRow][i]);
+            eRow--;
+            if (sCol<=eCol)
+                for (int i = eRow;i>=sRow;i--)
+                    ans.add(matrix[i][sCol]);
+            sCol++;
         }
         return ans;
     }
 
     public static void main(String[] args) {
         int[][] a = {
-                {1, 2, 3},
-                {4, 5, 6},
-                {7, 8, 9}
+                {1, 2, 3,10},
+                {4, 5, 6,11},
+                {7, 8, 9,12},
+                {13,14,15,16}
         };
         System.out.println(spiralOrder(a)); // [1,2,3,6,9,8,7,4,5]
     }
