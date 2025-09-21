@@ -1,6 +1,4 @@
-package leetCode;
-
-import java.util.Arrays;
+package leetCode.easy;
 
 public class MissingNumber {
     /**Question: Given an array `nums` containing `n` distinct numbers

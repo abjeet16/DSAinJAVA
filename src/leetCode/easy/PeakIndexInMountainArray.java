@@ -1,4 +1,4 @@
-package leetCode;
+package leetCode.easy;
 
 public class PeakIndexInMountainArray {
     public int peakIndexInMountainArray(int[] arr) {

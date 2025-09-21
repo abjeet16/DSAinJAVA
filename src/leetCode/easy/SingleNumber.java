@@ -1,6 +1,7 @@
-package leetCode;
+package leetCode.easy;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SingleNumber {
     public int singleNumber(int[] nums) {
