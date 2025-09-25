@@ -1,4 +1,4 @@
-package leetCode.easy;
+package leetCode.easy.number;
 
 public class PerfectNumber {
     public static boolean checkPerfectNumber(int num) {

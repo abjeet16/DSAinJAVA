@@ -1,4 +1,4 @@
-package leetCode.easy;
+package leetCode.easy.string;
 
 public class FindMostFrequentVowelAndConsonant {
     public static int maxFreqSum(String s) {

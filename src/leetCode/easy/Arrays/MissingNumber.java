@@ -1,4 +1,4 @@
-package leetCode.easy;
+package leetCode.easy.Arrays;
 
 public class MissingNumber {
     /**Question: Given an array `nums` containing `n` distinct numbers

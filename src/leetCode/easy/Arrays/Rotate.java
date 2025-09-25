@@ -1,4 +1,4 @@
-package leetCode.easy;
+package leetCode.easy.Arrays;
 
 class Rotate {
     public static void main(String[] args) {

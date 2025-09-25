@@ -1,4 +1,4 @@
-package leetCode.easy;
+package leetCode.easy.Arrays;
 
 public class FindNUniqueIntegersSumUpToZero {
     public int[] sumZero(int n) {

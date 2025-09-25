@@ -1,6 +1,4 @@
-package leetCode.easy;
-
-import java.util.Arrays;
+package leetCode.easy.string;
 
 public class MaximumNumberOfWordsYouCanType {
     public static int canBeTypedWords(String text, String brokenLetters) {

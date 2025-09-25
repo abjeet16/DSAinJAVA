@@ -1,4 +1,4 @@
-package leetCode.easy;
+package leetCode.easy.string;
 /*
 I             1
 V             5
