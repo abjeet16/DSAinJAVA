@@ -6,19 +6,16 @@ public class SuccessfulPairsOfSpellsAndPotions {
     public static int[] successfulPairs(int[] spells, int[] potions, long success) {
         Arrays.sort(potions);
         for (int i = 0 ; i < spells.length ; i++){
-            int currAns = SearchSuccessfulPair(spells[i],potions,success);
-            spells[i] = currAns;
+            spells[i] = SearchSuccessfulPair(spells[i],potions,success);
         }
         return spells;
     }
 
     private static int SearchSuccessfulPair(int spell, int[] potions, long success) {
         int right = potions.length-1 , left = 0 , res = 0 ;
-        while (right>=left){
+        while (left<=right){
             int mid = (right+left)/2;
-            if (success/spell==potions[mid]){
-                return potions.length-mid;
-            } else if (success/spell < potions[mid]) {
+            if ((long) spell * potions[mid] >= success) {
                 res = potions.length-mid;
                 right = mid-1;
             } else {
