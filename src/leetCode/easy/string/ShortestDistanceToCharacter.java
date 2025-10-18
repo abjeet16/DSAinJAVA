@@ -12,23 +12,41 @@ public class ShortestDistanceToCharacter {
     }
 
     private static int[] getResult(int[] leftToRight, int[] rightToLeft, int len) {
-        int[] res = new int[len];
+        /**
+         * if you don't want to reuse one array
+         * int[] res = new int[len];
+         *         int left = 0 , right = len-1;
+         *         while (left<len&&leftToRight[left]!=0){
+         *             res[left]=rightToLeft[left];
+         *             left++;
+         *         }
+         *         while (right>=0 && rightToLeft[right]!=0){
+         *             res[right]=leftToRight[right];
+         *             right--;
+         *         }
+         *         while (right>=left){
+         *             res[right]=Math.min(rightToLeft[right],leftToRight[right]);
+         *             res[left]=Math.min(rightToLeft[left],leftToRight[left]);
+         *             right--;
+         *             left++;
+         *         }
+         *         return res;
+         */
         int left = 0 , right = len-1;
         while (left<len&&leftToRight[left]!=0){
-            res[left]=rightToLeft[left];
             left++;
         }
         while (right>=0 && rightToLeft[right]!=0){
-            res[right]=leftToRight[right];
+            rightToLeft[right]=leftToRight[right];
             right--;
         }
         while (right>=left){
-            res[right]=Math.min(rightToLeft[right],leftToRight[right]);
-            res[left]=Math.min(rightToLeft[left],leftToRight[left]);
+            rightToLeft[right]=Math.min(rightToLeft[right],leftToRight[right]);
+            rightToLeft[left]=Math.min(rightToLeft[left],leftToRight[left]);
             right--;
             left++;
         }
-        return res;
+        return rightToLeft;
     }
 
     private static void getDistanceLeftAndRight(int[] leftToRight, int[] rightToLeft, int len,String s,char c) {
