@@ -2,6 +2,7 @@ package leetCode.easy.string;
 
 import java.util.Arrays;
 
+//821. Shortest Distance to a Character
 public class ShortestDistanceToCharacter {
     public static int[] shortestToChar(String s, char c) {
         int len = s.length();
