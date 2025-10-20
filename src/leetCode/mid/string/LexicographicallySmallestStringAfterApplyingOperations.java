@@ -5,14 +5,28 @@ import java.util.*;
 //1625. Lexicographically Smallest String After Applying Operations
 public class LexicographicallySmallestStringAfterApplyingOperations {
     public static String findLexSmallestString(String s, int a, int b) {
-        String smallest = s;
-        Queue<String> queue = new ArrayDeque<>();
-        int[] vist = new int[s.length()];
-        Set<String> visted = new HashSet<>();
-        queue.add(s);
-        visted.add(s);
+        Set<String> visited = new HashSet<>();
+        String[] smallest = {s};
+        dfs(s,a,b,visited,smallest);
+        return smallest[0];
+    }
+
+    private static void dfs(String s, int a, int b, Set<String> visted,String[] smallest) {
+        if (!visted.add(s)){
+            return ;
+        }
+        if (isFirstArgsSmaller(s,smallest[0])){
+            smallest[0] = s;
+        }
+        dfs(add(s,a),a,b,visted,smallest);
+        dfs(rotate(s,b),a,b,visted,smallest);
+    }
+
+    private static String bfs(String smallest, Queue<String> queue, Set<String> visted, int a, int b) {
+        queue.add(smallest);
+        visted.add(smallest);
         while (!queue.isEmpty()){
-            s = queue.poll();
+            String s = queue.poll();
             if (isFirstArgsSmaller(s,smallest)){
                 smallest = s;
             }
@@ -84,7 +98,6 @@ public class LexicographicallySmallestStringAfterApplyingOperations {
     }
 
     public static void main(String[] args) {
-        System.out.println(isFirstArgsSmaller("123","456"));
         String str = "74";
         int a = 5;
         int b = 1;
