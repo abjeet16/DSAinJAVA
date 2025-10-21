@@ -29,7 +29,7 @@ public class BinarySearch {
         int end = arr.length;
         while (start<end) {
             int mid = (start+end)/ 2;
-            if ((mid==0||arr[mid] >arr[mid-1])&&(mid==arr.length-1||arr[mid]>arr[mid+1]))
+            if ((mid==0||arr[mid] > arr[mid-1])&&(mid==arr.length-1||arr[mid]>arr[mid+1]))
                 return mid;
             else if (arr[mid] < arr[mid+1] ) {
                 start = mid+1;

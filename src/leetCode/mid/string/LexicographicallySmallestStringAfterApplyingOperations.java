@@ -6,20 +6,19 @@ import java.util.*;
 public class LexicographicallySmallestStringAfterApplyingOperations {
     public static String findLexSmallestString(String s, int a, int b) {
         Set<String> visited = new HashSet<>();
-        String[] smallest = {s};
-        dfs(s,a,b,visited,smallest);
-        return smallest[0];
+        return dfs(s,a,b,visited,s);
     }
 
-    private static void dfs(String s, int a, int b, Set<String> visted,String[] smallest) {
+    private static String dfs(String s, int a, int b, Set<String> visted,String smallest) {
         if (!visted.add(s)){
-            return ;
+            return smallest;
         }
-        if (isFirstArgsSmaller(s,smallest[0])){
-            smallest[0] = s;
+        if (isFirstArgsSmaller(s,smallest)){
+            smallest = s;
         }
-        dfs(add(s,a),a,b,visted,smallest);
-        dfs(rotate(s,b),a,b,visted,smallest);
+        smallest = dfs(add(s,a),a,b,visted,smallest);
+        smallest = dfs(rotate(s,b),a,b,visted,smallest);
+        return smallest;
     }
 
     private static String bfs(String smallest, Queue<String> queue, Set<String> visted, int a, int b) {

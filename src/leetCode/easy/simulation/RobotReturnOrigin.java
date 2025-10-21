@@ -1,4 +1,4 @@
-package leetCode.easy.Simulation;
+package leetCode.easy.simulation;
 
 //657. Robot Return to Origin
 public class RobotReturnOrigin {

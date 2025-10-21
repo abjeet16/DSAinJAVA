@@ -1,4 +1,4 @@
-package leetCode.hard.arrays;
+package leetCode.hard.simulation;
 
 /**<a href="https://youtu.be/9WYhuzn8hd8">...</a>*/
 public class SwimInRisingWater {
