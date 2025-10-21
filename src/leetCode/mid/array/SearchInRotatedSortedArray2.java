@@ -11,10 +11,12 @@ public class SearchInRotatedSortedArray2 {
             if (midValue==target){
                 return true;
             }
-            boolean leftSorted = midValue>=nums[left];
+            /// int[] arr = {1,0,1,1,1};
+            /// int target = 0 ;
+            //for this case we use this where both array come sorted but they are not
             if (nums[left]==midValue&&midValue==nums[right]){
-                left++;
-            } else if (leftSorted) {
+                left++;right--;
+            } else if (midValue>=nums[left]) {
                 if (target>=nums[left]&&target<=midValue){
                     right = mid-1;
                 }else {
