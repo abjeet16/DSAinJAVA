@@ -1,4 +1,4 @@
-package leetCode.mid.array.binarySearch;
+package leetCode.strivers.binarySearch;
 
 /// 1482. Minimum Number of Days to Make m Bouquets
 public class MinimumNumberOfDaysToMakeBouquets {

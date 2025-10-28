@@ -1,4 +1,4 @@
-package leetCode.mid.array.binarySearch;
+package leetCode.strivers.binarySearch;
 
 //81. Search in Rotated Sorted Array II
 public class SearchInRotatedSortedArray2 {

@@ -1,7 +1,6 @@
-package leetCode.mid.array.binarySearch;
+package leetCode.strivers.binarySearch;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FindOutHowManyTimesTheArrayIsRotated {
     public static int findKRotation(ArrayList<Integer> nums) {

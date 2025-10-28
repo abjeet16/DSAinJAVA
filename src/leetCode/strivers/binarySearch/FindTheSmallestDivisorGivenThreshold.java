@@ -1,4 +1,4 @@
-package leetCode.mid.array.binarySearch;
+package leetCode.strivers.binarySearch;
 /// 1283. Find the Smallest Divisor Given a Threshold
 public class FindTheSmallestDivisorGivenThreshold {
     public static int smallestDivisor(int[] nums, int threshold) {

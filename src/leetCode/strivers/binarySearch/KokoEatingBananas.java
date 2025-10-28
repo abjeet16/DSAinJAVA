@@ -1,4 +1,4 @@
-package leetCode.mid.array.binarySearch;
+package leetCode.strivers.binarySearch;
 
 /// 875. Koko Eating Bananas
 public class KokoEatingBananas {

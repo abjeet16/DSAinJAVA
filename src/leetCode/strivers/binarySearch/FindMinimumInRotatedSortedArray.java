@@ -1,4 +1,4 @@
-package leetCode.mid.array.binarySearch;
+package leetCode.strivers.binarySearch;
 
 //153. Find Minimum in Rotated Sorted Array
 public class FindMinimumInRotatedSortedArray {

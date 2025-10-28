@@ -1,4 +1,4 @@
-package leetCode.mid.array.binarySearch;
+package leetCode.strivers.binarySearch;
 //540. Single Element in a Sorted Array
 public class SingleElementInSortedArray {
     public static int singleNonDuplicate(int[] nums) {
