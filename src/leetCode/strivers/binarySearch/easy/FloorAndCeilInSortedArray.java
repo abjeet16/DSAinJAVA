@@ -1,4 +1,4 @@
-package leetCode.strivers.binarySearch;
+package leetCode.strivers.binarySearch.easy;
 
 import java.util.Arrays;
 

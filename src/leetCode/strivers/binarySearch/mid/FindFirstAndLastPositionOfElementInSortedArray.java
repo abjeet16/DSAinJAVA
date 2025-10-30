@@ -1,8 +1,8 @@
-package leetCode.strivers.binarySearch;
+package leetCode.strivers.binarySearch.mid;
 
 import java.util.Arrays;
 
-//34. Find First and Last Position of Element in Sorted Array
+/// 34. Find First and Last Position of Element in Sorted Array
 public class FindFirstAndLastPositionOfElementInSortedArray {
     public static int[] searchRange(int[] nums, int target) {
         int[] ans = {-1, -1};

@@ -1,5 +1,5 @@
-package leetCode.strivers.binarySearch;
-//162. Find Peak Element
+package leetCode.strivers.binarySearch.mid;
+/// 162. Find Peak Element
 public class FindPeakElement {
     public int findPeakElement(int[] nums) {
         int right = nums.length-1;

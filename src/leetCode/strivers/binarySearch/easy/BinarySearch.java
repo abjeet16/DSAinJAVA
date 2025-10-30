@@ -1,4 +1,4 @@
-package leetCode.strivers.binarySearch;
+package leetCode.strivers.binarySearch.easy;
 //704. Binary Search
 public class BinarySearch {
     public int search(int[] nums, int target) {

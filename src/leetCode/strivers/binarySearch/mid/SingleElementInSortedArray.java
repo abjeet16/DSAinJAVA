@@ -1,5 +1,5 @@
-package leetCode.strivers.binarySearch;
-//540. Single Element in a Sorted Array
+package leetCode.strivers.binarySearch.mid;
+/// 540. Single Element in a Sorted Array
 public class SingleElementInSortedArray {
     public static int singleNonDuplicate(int[] nums) {
         if (nums.length==1)

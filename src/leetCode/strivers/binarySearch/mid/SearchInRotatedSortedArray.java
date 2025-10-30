@@ -1,6 +1,6 @@
-package leetCode.strivers.binarySearch;
+package leetCode.strivers.binarySearch.mid;
 
-//33. Search in Rotated Sorted Array
+/// 33. Search in Rotated Sorted Array
 public class SearchInRotatedSortedArray {
     public static int search(int[] nums, int target) {
         int low = 0, high = nums.length - 1;

@@ -1,4 +1,4 @@
-package leetCode.strivers.binarySearch;
+package leetCode.strivers.binarySearch.mid;
 
 /// 1011. Capacity To Ship Packages Within D Days
 public class CapacityToShipPackagesWithinDays {
