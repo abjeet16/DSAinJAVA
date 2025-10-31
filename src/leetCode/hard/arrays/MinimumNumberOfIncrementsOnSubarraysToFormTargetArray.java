@@ -33,8 +33,18 @@ public class MinimumNumberOfIncrementsOnSubarraysToFormTargetArray {
             initial[i++]+=toChange;
     }
 
+    public static int minNumberOperationsBetter(int[] target){
+        int res = target[0];
+        int len = target.length;
+        for (int i = 1 ; i < len ; i++){
+            if (target[i]>target[i-1]) {
+                res += target[i] - target[i-1];
+            }
+        }
+        return res;
+    }
     public static void main(String[] args) {
         int[] arr = {1,2,3,2,1};
-        System.out.println(minNumberOperations(arr));
+        System.out.println(minNumberOperationsBetter(arr));
     }
 }

@@ -1,3 +1,7 @@
 407. Trapping Rain Water II
 3186. Maximum Total Damage With Spell Casting
 3539. Find Sum of Array Product of Magical Sequences
+
+
+//bitManipulation
+3370. Smallest Number With All Set Bits
