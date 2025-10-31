@@ -2,6 +2,16 @@ package leetCode.easy.bitManipulation;
 
 /// 3370. Smallest Number With All Set Bits
 public class SmallestNumberWithAllSetBits {
+    public static int smallestNumberBetter(int n) {
+        int nextAddition = 1;
+        int res = 0;
+        while (res<n) {
+            res += nextAddition;
+            nextAddition*=2;
+        }
+        return res;
+    }
+
     public static int smallestNumber(int n) {
         int noOnes = 0;
         int res = 0;
