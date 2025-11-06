@@ -1,3 +1,5 @@
-696. Count Binary Substring
-661. Image Smoother
-3318. Find X-Sum of All K-Long Subarrays I
+696. Count Binary Substring                          (easy)
+661. Image Smoother                                  (easy)
+407. Trapping Rain Water II                          (hard)
+3318. Find X-Sum of All K-Long Subarrays I           (easy)
+3321. Find X-Sum of All K-Long Subarrays II          (hard)

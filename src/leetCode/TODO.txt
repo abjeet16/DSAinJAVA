@@ -1,6 +1,7 @@
 407. Trapping Rain Water II
 3186. Maximum Total Damage With Spell Casting
 3539. Find Sum of Array Product of Magical Sequences
+3321. Find X-Sum of All K-Long Subarrays II
 
 
 //bitManipulation
