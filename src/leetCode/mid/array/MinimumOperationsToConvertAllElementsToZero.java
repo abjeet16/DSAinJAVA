@@ -1,10 +1,7 @@
 package leetCode.mid.array;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /// 3542. Minimum Operations to Convert All Elements to Zero
 public class MinimumOperationsToConvertAllElementsToZero {
@@ -54,51 +51,23 @@ public class MinimumOperationsToConvertAllElementsToZero {
         return i;
     }*/
     public static int minOperations(int[] nums) {
-        ArrayList<Integer> toChangeIndex = new ArrayList<>();
-        int res = 0;
-        int start = getFirstNonZero(nums);
-        int end = start+1;
-        int len = nums.length;
-        if (start==len)
-            return 0;
-        toChangeIndex.add(start);
-        int min = nums[start];
-        while (start<len){
-            if (end==len||nums[end]==0){
-                markAllZero(nums,toChangeIndex);
-                start = getFirstNonZero(nums);
-                end = start;
-                min=Integer.MAX_VALUE;
-                res++;
-                continue;
-            }
-            if (nums[end]<min){
-                min = nums[end];
-                start = end;
-                toChangeIndex = new ArrayList<>();
-            }
-            if (nums[end]==min)
-                toChangeIndex.add(end);
-            end++;
-        }
-        return res;
-    }
+        Stack<Integer> st = new Stack<>();
+        int ops = 0;
 
-    private static void markAllZero(int[] nums,ArrayList<Integer> list) {
-        for (Integer integer : list) {
-            nums[integer] = 0;
-        }
-    }
+        for (int num : nums) {
+            while (!st.isEmpty() && st.peek() > num) {
+                st.pop();
+            }
 
-    private static int getFirstNonZero(int[] nums) {
-        int i = 0;
-        int len = nums.length;
-        while (i<len){
-            if (nums[i]!=0)
-                break;
-            i++;
+            if (num == 0) continue;
+
+            if (st.isEmpty() || st.peek() < num) {
+                st.push(num);
+                ops++;
+            }
         }
-        return i;
+
+        return ops;
     }
 
     public static void main(String[] args) {
