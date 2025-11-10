@@ -1,52 +1,88 @@
 package leetCode.mid.array;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /// 3607. Power Grid Maintenance
 public class PowerGridMaintenance {
-    public int[] processQueries(int c, int[][] connections, int[][] queries) {
-        boolean[] offlineStation = new boolean[c];
-        boolean[] marked = new boolean[c];
-        int[] res = new int[getNumberOfOneQuery(queries)];
 
-        List<PriorityQueue<Integer>> graphs = new ArrayList<>();
-        for (int[] connection :  connections){
-            if (marked[connection[1]]){
-                addToGraph(graphs,connection[0],connection[1]);
-            } else if (marked[connection[0]]) {
-                addToGraph(graphs,connection[1],connection[0]);
-            }else {
-                PriorityQueue<Integer> graph = new PriorityQueue<>();
-                graph.add(connection[0]);
-                graph.add(connection[1]);
-                graphs.add(graph);
-            }
-            marked[connection[0]]=true;
-            marked[connection[1]]=true;
-        }
+    static Map<Integer, TreeSet<Integer>> componentStations = new HashMap<>();
 
-        for (int[] q : queries){
-            if (q[0]==2)
-                offlineStation[q[1]]=true;
-            else {
+    private static void dfs(int node,
+                     Map<Integer, List<Integer>> adj,
+                     int[] visited,
+                     int componentId,
+                     int[] componentOf) {
 
+        visited[node] = 1;
+        componentOf[node] = componentId;
+
+        componentStations.putIfAbsent(componentId, new TreeSet<>());
+        componentStations.get(componentId).add(node);
+
+        for (int neighbor : adj.getOrDefault(node, new ArrayList<>())) {
+            if (visited[neighbor] == 0) {
+                dfs(neighbor, adj, visited, componentId, componentOf);
             }
         }
-        return res;
     }
 
-    private void addToGraph(List<PriorityQueue<Integer>> graphs, int target, int position) {
+    public static int[] processQueries(int c, int[][] connections, int[][] queries) {
 
-    }
+        Map<Integer, List<Integer>> adj = new HashMap<>();
 
-    private int getNumberOfOneQuery(int[][] queries) {
-        int res = 0;
-        for (int[] q : queries){
-            if (q[0]==1)
-                res++;
+        // Build adjacency list
+        for (int[] edge : connections) {
+            int u = edge[0];
+            int v = edge[1];
+
+            adj.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+            adj.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
         }
-        return res;
+
+        int[] visited = new int[c + 1];
+        int[] componentOf = new int[c + 1];
+
+        // DFS to assign component ids
+        for (int node = 1; node <= c; node++) {
+            if (visited[node] == 0) {
+                dfs(node, adj, visited, node, componentOf);
+            }
+        }
+
+        List<Integer> resultList = new ArrayList<>();
+
+        // Process queries
+        for (int[] q : queries) {
+            int type = q[0];
+            int x = q[1];
+
+            int compId = componentOf[x];
+            TreeSet<Integer> set = componentStations.get(compId);
+
+            if (type == 1) {
+                if (set.contains(x)) {
+                    resultList.add(x);
+                } else if (!set.isEmpty()) {
+                    resultList.add(set.first());
+                } else {
+                    resultList.add(-1);
+                }
+            } else {
+                set.remove(x); //offline
+            }
+        }
+
+        int[] result = new int[resultList.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = resultList.get(i);
+        }
+
+        return result;
+    }
+    public static void main(String[] args) {
+        int c = 5;
+        int[][] connection = {{1,2},{2,3},{3,4},{4,5}};
+        int[][] queries = {{1,3},{2,1},{1,1},{2,2},{1,2}};
+        System.out.println(Arrays.toString(processQueries(c,connection,queries)));
     }
 }
