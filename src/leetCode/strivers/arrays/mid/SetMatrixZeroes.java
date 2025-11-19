@@ -28,32 +28,53 @@ public class SetMatrixZeroes {
         }
     }
 
-    public static void setZeroesBetter(int[][] matrix){
+    public static void setZeroesBetter(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        boolean firstRowHasZero = false;
-        boolean firstColHasZero = false;
-        for (int i = 0; i < m; i++) {
+        boolean firstRowZero = false;
+        boolean firstColZero = false;
+
+        // Check first column separately
+        for(int i = 0; i < m; i++) {
             if (matrix[i][0] == 0) {
-                firstRowHasZero=true;
-                break;
-            }
-        }
-        for (int i = 1; i < n; i++) {
-            if (matrix[0][i]==0){
-                firstColHasZero=true;
+                firstColZero = true;
                 break;
             }
         }
 
-
-        print(matrix);
-
-        for (int i = m-1; i >= 0; i--) {
-            for (int j = n-1; j >= 0; j--) {
-                if (matrix[i][0]==0||matrix[0][j]==0)
-                    matrix[i][j]=0;
+        // Check first row separately
+        for(int j = 0; j < n; j++) {
+            if (matrix[0][j] == 0) {
+                firstRowZero = true;
+                break;
             }
+        }
+
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                if(matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                if(matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        if(firstRowZero) {
+            for(int j = 0; j < n; j++)
+                matrix[0][j] = 0;
+        }
+
+        if(firstColZero) {
+            for(int i = 0; i < m; i++)
+                matrix[i][0] = 0;
         }
     }
 
