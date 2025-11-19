@@ -1,0 +1,17 @@
+package leetCode.easy.math;
+
+/// 1614. Maximum Nesting Depth of the Parentheses
+public class MaximumNestingDepthOfTheParentheses {
+    public int maxDepth(String s) {
+        int curr = 0 ;
+        int res = 0;
+        for (char ch : s.toCharArray()) {
+            if (ch == '(')
+                curr++;
+            else if (ch==')')
+                curr--;
+            res = Math.max(res,curr);
+        }
+        return res;
+    }
+}

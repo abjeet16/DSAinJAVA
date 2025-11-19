@@ -4,3 +4,5 @@
 3318. Find X-Sum of All K-Long Subarrays I           (easy)
 3321. Find X-Sum of All K-Long Subarrays II          (hard)
 3542. Minimum Operations to Convert All Elements to Zero (mid)
+506. Relative Ranks                                  (easy)
+2696. Minimum String Length After Removing Substrings(easy)

@@ -2,30 +2,33 @@ package leetCode.easy.Arrays;
 
 import java.util.Arrays;
 
+/// 506. Relative Ranks
 public class RelativeRanks {
     public static String[] findRelativeRanks(int[] score) {
         int[] sorted = score.clone();
         Arrays.sort(sorted);
-        String[] res = new String[score.length];
-        for (int i = 0 ; i < score.length ; i++){
+        int len = score.length;
+        String[] res = new String[len];
+        for (int i = 0 ; i < len ; i++){
             res[i] = finkRank(sorted,score[i]);
         }
         return res;
     }
 
     private static String finkRank(int[] sorted, int i) {
-        int left = 0,right = sorted.length-1;
+        int len = sorted.length;
+        int left = 0,right = len-1;
         while (left<=right){
             int mid = (left+right)/2;
             if (sorted[mid]==i) {
-                if (mid == sorted.length-1)
+                if (mid == len-1)
                     return "Gold Medal";
-                else if (mid == sorted.length-2)
+                else if (mid == len-2)
                     return "Silver Medal";
-                else if (mid == sorted.length-3)
+                else if (mid == len-3)
                     return "Bronze Medal";
                 else
-                    return String.valueOf(sorted.length-mid);
+                    return String.valueOf(len-mid);
             }
             else if (sorted[mid]>i) {
                 right = mid-1;

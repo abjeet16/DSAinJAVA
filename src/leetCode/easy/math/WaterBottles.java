@@ -1,5 +1,6 @@
 package leetCode.easy.math;
 
+/// 1518. Water Bottles
 public class WaterBottles {
     public static int numWaterBottles(int numBottles, int numExchange) {
         int totalDrunk = 0;
