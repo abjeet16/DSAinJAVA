@@ -4,8 +4,10 @@
 3321. Find X-Sum of All K-Long Subarrays II
 2528. Maximize the Minimum Powered City
 3234. Count the Number of Substrings With Dominant Ones
+757. Set Intersection Size At Least Two
 
 //bitManipulation
+342. Power of Four
 3370. Smallest Number With All Set Bits
 1611. Minimum One Bit Operations to Make Integers Zero
 
@@ -17,3 +19,4 @@
 
 //math
 3747. Count Distinct Integers After Removing Zeros
+292. Nim Game
