@@ -5,11 +5,13 @@
 2528. Maximize the Minimum Powered City
 3234. Count the Number of Substrings With Dominant Ones
 757. Set Intersection Size At Least Two
+1652. Defuse the Bomb
 
 //bitManipulation
 342. Power of Four
 3370. Smallest Number With All Set Bits
 1611. Minimum One Bit Operations to Make Integers Zero
+3750. Minimum Number of Flips to Reverse Binary String
 
 //Graph
 3607. Power Grid Maintenance

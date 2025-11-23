@@ -3,7 +3,7 @@ package leetCode.mid.systemDesign;
 import java.util.Arrays;
 import java.util.HashMap;
 
-/// 46. LRU Cache
+/// 146. LRU Cache
 class LRUCache {
     private int[] useage = new int[3001];
     private int capacity;
