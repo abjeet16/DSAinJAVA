@@ -1,7 +1,4 @@
-package leetCode.easy.stackAndQueue;
-
-import javax.print.DocFlavor;
-import java.util.Stack;
+package leetCode.easy.stackQueue;
 
 /// 1598. Crawler Log Folder
 public class CrawlerLogFolder {

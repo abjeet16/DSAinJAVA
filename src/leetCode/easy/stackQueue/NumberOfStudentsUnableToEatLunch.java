@@ -1,6 +1,4 @@
-package leetCode.easy.stackAndQueue;
-
-import java.util.*;
+package leetCode.easy.stackQueue;
 
 /// 1700. Number of Students Unable to Eat Lunch
 public class NumberOfStudentsUnableToEatLunch {

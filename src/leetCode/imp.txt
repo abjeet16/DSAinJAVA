@@ -6,3 +6,4 @@
 3542. Minimum Operations to Convert All Elements to Zero (mid)
 506. Relative Ranks                                  (easy)
 2696. Minimum String Length After Removing Substrings(easy)
+1475. Final Prices With a Special Discount in a Shop(easy)
