@@ -2,6 +2,7 @@ package HackerRank.easy.strings;
 
 public class Anagram {
     public static int anagram(String s) {
+
         // Write your code here
         int len = s.length();
         if (len%2!=0)
