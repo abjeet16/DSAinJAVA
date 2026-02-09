@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Leave Approval System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 20px;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            max-width: 1100px;
+            margin: auto;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover { background: #5a67d8; }
+
+        .hidden { display: none; }
+
+        .sections {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .section {
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 250px;
+        }
+
+        .box {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 14px;
+        }
+
+        .pending { color: #d69e2e; font-weight: bold; }
+        .approved { color: #38a169; font-weight: bold; }
+        .rejected { color: #e53e3e; font-weight: bold; }
+
+        .btn-approve { background: #38a169; margin-top: 5px; }
+        .btn-reject { background: #e53e3e; margin-top: 5px; }
+
+        .date-row {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="loginBox">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Enter Name" />
+    <select id="role">
+        <option value="employee">Employee</option>
+        <option value="manager">Manager</option>
+    </select>
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- Employee Dashboard -->
+<div class="container hidden" id="employeeBox">
+    <h2>Employee Dashboard</h2>
+
+    <div class="date-row">
+        <input type="date" id="startDate" />
+        <input type="date" id="endDate" />
+    </div>
+    <textarea id="reason" placeholder="Leave Reason"></textarea>
+    <button onclick="applyLeave()">Apply Leave</button>
+
+    <div class="sections">
+        <div class="section">
+            <h3>Pending</h3>
+            <div id="empPending"></div>
+        </div>
+        <div class="section">
+            <h3>Approved</h3>
+            <div id="empApproved"></div>
+        </div>
+        <div class="section">
+            <h3>Rejected</h3>
+            <div id="empRejected"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Manager Dashboard -->
+<div class="container hidden" id="managerBox">
+    <h2>Manager Dashboard</h2>
+
+    <div class="sections">
+        <div class="section">
+            <h3>Pending Requests</h3>
+            <div id="pendingLeaves"></div>
+        </div>
+        <div class="section">
+            <h3>Approved (On Leave)</h3>
+            <div id="approvedLeaves"></div>
+        </div>
+        <div class="section">
+            <h3>Rejected</h3>
+            <div id="rejectedLeaves"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentUser = "";
+
+    function getLeaves() {
+        return JSON.parse(getCookie("leaves") || "[]");
+    }
+
+    function saveLeaves(leaves) {
+        document.cookie = "leaves=" + JSON.stringify(leaves) + "; path=/";
+    }
+
+    function getCookie(name) {
+        let value = "; " + document.cookie;
+        let parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function login() {
+        currentUser = document.getElementById("username").value;
+        let role = document.getElementById("role").value;
+        if (!currentUser) return alert("Enter username");
+
+        document.getElementById("loginBox").classList.add("hidden");
+
+        if (role === "employee") {
+            document.getElementById("employeeBox").classList.remove("hidden");
+            loadEmployeeLeaves();
+        } else {
+            document.getElementById("managerBox").classList.remove("hidden");
+            loadManagerView();
+        }
+    }
+
+    function applyLeave() {
+        let reason = document.getElementById("reason").value;
+        let start = document.getElementById("startDate").value;
+        let end = document.getElementById("endDate").value;
+
+        if (!reason || !start || !end) {
+            return alert("Please fill all leave details");
+        }
+
+        let leaves = getLeaves();
+        leaves.push({
+            user: currentUser,
+            reason,
+            start,
+            end,
+            status: "Pending"
+        });
+
+        saveLeaves(leaves);
+        document.getElementById("reason").value = "";
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+        loadEmployeeLeaves();
+    }
+
+    function formatLeave(l) {
+        return `<div class='box'>
+      <b>${l.start}</b> → <b>${l.end}</b><br>
+      ${l.reason}
+    </div>`;
+    }
+
+    function loadEmployeeLeaves() {
+        let leaves = getLeaves().filter(l => l.user === currentUser);
+        empPending.innerHTML = empApproved.innerHTML = empRejected.innerHTML = "";
+
+        leaves.forEach(l => {
+            if (l.status === "Pending") empPending.innerHTML += formatLeave(l);
+            if (l.status === "Approved") empApproved.innerHTML += formatLeave(l);
+            if (l.status === "Rejected") empRejected.innerHTML += formatLeave(l);
+        });
+    }
+
+    function loadManagerView() {
+        let leaves = getLeaves();
+        pendingLeaves.innerHTML = approvedLeaves.innerHTML = rejectedLeaves.innerHTML = "";
+
+        leaves.forEach((l, i) => {
+            if (l.status === "Pending") {
+                pendingLeaves.innerHTML += `<div class='box'>
+          <b>${l.user}</b><br>
+          ${l.start} → ${l.end}<br>
+          ${l.reason}
+          <button class='btn-approve' onclick='updateStatus(${i},"Approved")'>Approve</button>
+          <button class='btn-reject' onclick='updateStatus(${i},"Rejected")'>Reject</button>
+        </div>`;
+            }
+            if (l.status === "Approved") {
+                approvedLeaves.innerHTML += `<div class='box'>
+          <b>${l.user}</b><br>
+          ${l.start} → ${l.end}<br>
+          ${l.reason}
+        </div>`;
+            }
+            if (l.status === "Rejected") {
+                rejectedLeaves.innerHTML += `<div class='box'>
+          <b>${l.user}</b><br>
+          ${l.start} → ${l.end}<br>
+          ${l.reason}
+        </div>`;
+            }
+        });
+    }
+
+    function updateStatus(index, status) {
+        let leaves = getLeaves();
+        leaves[index].status = status;
+        saveLeaves(leaves);
+        loadManagerView();
+    }
+</script>
+
+</body>
+</html>

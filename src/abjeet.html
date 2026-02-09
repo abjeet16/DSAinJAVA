@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance System</title>
+
+    <style>
+        body{
+            font-family:Arial;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            padding:20px
+        }
+        .container{
+            background:#fff;
+            padding:20px;
+            border-radius:10px;
+            max-width:1200px;
+            margin:auto;
+            box-shadow:0 10px 25px rgba(0,0,0,.2);
+            position:relative;
+        }
+        h2,h3{text-align:center}
+        input,select,button{
+            width:100%;
+            padding:10px;
+            margin:6px 0;
+            border-radius:5px;
+            border:1px solid #ccc
+        }
+        button{
+            background:#667eea;
+            color:#fff;
+            font-weight:bold;
+            border:none;
+            cursor:pointer
+        }
+        button:hover{background:#5a67d8}
+        .hidden{display:none}
+        .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+        .card{background:#f7f7f7;padding:15px;border-radius:8px}
+        .box{background:#fff;padding:8px;border-radius:5px;margin-bottom:6px}
+
+        .back-text{
+            position:absolute;
+            top:15px;
+            left:20px;
+            cursor:pointer;
+            color:#667eea;
+            font-weight:bold;
+        }
+        .back-text:hover{text-decoration:underline}
+    </style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="container" id="loginBox">
+    <h2>Attendance management system<br>Login</h2>
+    <input id="loginId" placeholder="User ID / UUCMS">
+    <input id="loginPass" placeholder="Password" type="password">
+    <select id="loginRole">
+        <option value="admin">Admin</option>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+    </select>
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- ADMIN -->
+<div class="container hidden" id="adminBox">
+    <span class="back-text" onclick="goBack()">← Back</span>
+    <h2>Admin Dashboard</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Add Student</h3>
+            <input id="stuUucms" placeholder="UUCMS">
+            <input id="stuPass" placeholder="Password">
+            <button onclick="addStudent()">Add Student</button>
+        </div>
+
+        <div class="card">
+            <h3>Add Teacher</h3>
+            <input id="teachId" placeholder="Teacher ID">
+            <input id="teachPass" placeholder="Password" type="password">
+            <input id="teachSub" placeholder="Subject">
+            <button onclick="addTeacher()">Add Teacher</button>
+        </div>
+
+        <div class="card">
+            <h3>System Info</h3>
+            <p>Users & Attendance stored in Cookies</p>
+        </div>
+    </div>
+</div>
+
+<!-- TEACHER -->
+<div class="container hidden" id="teacherBox">
+    <span class="back-text" onclick="goBack()">← Back</span>
+    <h2>Teacher Dashboard</h2>
+
+    <select id="teacherSubject"></select>
+    <div id="studentList"></div>
+    <button onclick="submitAttendance()">Submit Attendance</button>
+</div>
+
+<!-- STUDENT -->
+<div class="container hidden" id="studentBox">
+    <span class="back-text" onclick="goBack()">← Back</span>
+    <h2>Student Dashboard</h2>
+
+    <canvas id="pie" width="300" height="300"></canvas>
+    <div id="studentAttendance"></div>
+</div>
+
+<script>
+    let currentUser="";
+    let tempAttendance={};
+
+    /* ---------- PASSWORD VALIDATION ---------- */
+    function isValidPassword(pwd){
+        const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/;
+        return regex.test(pwd);
+    }
+
+    /* ---------- COOKIE HELPERS ---------- */
+    function setData(key,val){
+        document.cookie = key+"="+encodeURIComponent(JSON.stringify(val))+
+            ";path=/;max-age="+(60*60*24*7);
+    }
+    function getCookie(name){
+        let v="; "+document.cookie;
+        let p=v.split("; "+name+"=");
+        return p.length===2 ? p.pop().split(";").shift() : null;
+    }
+    function getData(key){
+        let c=getCookie(key);
+        return c?JSON.parse(decodeURIComponent(c)):[];
+    }
+
+    /* ---------- NAV ---------- */
+    function show(box){
+        loginBox.classList.add("hidden");
+        adminBox.classList.add("hidden");
+        teacherBox.classList.add("hidden");
+        studentBox.classList.add("hidden");
+        box.classList.remove("hidden");
+    }
+    function goBack(){
+        currentUser="";
+        show(loginBox);
+    }
+
+    /* ---------- LOGIN ---------- */
+    function login(){
+        let id=loginId.value;
+        let pass=loginPass.value;
+        let role=loginRole.value;
+
+        if(role==="admin"){
+            if(id!=="admin"||pass!=="admin")
+                return alert("Invalid admin credentials");
+            show(adminBox); return;
+        }
+
+        if(role==="student"){
+            let s=getData("students")
+                .find(x=>x.uucms===id&&x.pass===pass);
+            if(!s) return alert("Invalid login");
+            currentUser=id;
+            show(studentBox);
+            loadStudent();
+        }
+
+        if(role==="teacher"){
+            let t=getData("teachers")
+                .find(x=>x.id===id&&x.pass===pass);
+            if(!t) return alert("Invalid login");
+            currentUser=id;
+            show(teacherBox);
+            loadTeacher(t.subject);
+        }
+    }
+
+    /* ---------- ADMIN ---------- */
+    function addStudent(){
+        let pwd=stuPass.value;
+        if(!isValidPassword(pwd)){
+            alert("Password must have:\n• Min 5 characters\n• 1 Uppercase\n• 1 Digit\n• 1 Special character");
+            return;
+        }
+
+        let s=getData("students");
+        s.push({uucms:stuUucms.value,pass:pwd});
+        setData("students",s);
+        alert("Student added successfully");
+        stuUucms.value=stuPass.value="";
+    }
+
+    function addTeacher(){
+        let pwd=teachPass.value;
+        if(!isValidPassword(pwd)){
+            alert("Password must have:\n• Min 5 characters\n• 1 Uppercase\n• 1 Digit\n• 1 Special character");
+            return;
+        }
+
+        let t=getData("teachers");
+        t.push({id:teachId.value,pass:pwd,subject:teachSub.value});
+        setData("teachers",t);
+        alert("Teacher added successfully");
+        teachId.value=teachPass.value=teachSub.value="";
+    }
+
+    /* ---------- TEACHER ---------- */
+    function loadTeacher(subject){
+        teacherSubject.innerHTML=`<option>${subject}</option>`;
+        let students=getData("students");
+        studentList.innerHTML="";
+        tempAttendance={};
+
+        students.forEach(s=>{
+            tempAttendance[s.uucms]=null;
+            studentList.innerHTML+=`
+    <div class="box">
+      ${s.uucms}
+      <button onclick="selectStatus('${s.uucms}','Present',this)">Present</button>
+      <button onclick="selectStatus('${s.uucms}','Absent',this)">Absent</button>
+    </div>`;
+        });
+    }
+    function selectStatus(u,status,btn){
+        tempAttendance[u]=status;
+        btn.parentElement.querySelectorAll("button")
+            .forEach(b=>b.style.background="#aaa");
+        btn.style.background=status==="Present"?"green":"red";
+    }
+    function submitAttendance(){
+        let a=getData("attendance");
+        let subject=teacherSubject.value;
+        let date=new Date().toISOString().slice(0,10);
+
+        for(let u in tempAttendance){
+            if(tempAttendance[u])
+                a.push({student:u,subject,status:tempAttendance[u],date});
+        }
+        setData("attendance",a);
+        alert("Attendance submitted");
+    }
+
+    /* ---------- STUDENT ---------- */
+    function loadStudent(){
+        let a=getData("attendance").filter(x=>x.student===currentUser);
+        let p=0,ab=0;
+        studentAttendance.innerHTML="";
+
+        a.forEach(r=>{
+            r.status==="Present"?p++:ab++;
+            studentAttendance.innerHTML+=
+                `<div class="box">${r.subject} | ${r.date} | ${r.status}</div>`;
+        });
+        drawPie(p,ab);
+    }
+    function drawPie(p,a){
+        let ctx=pie.getContext("2d");
+        let total=p+a||1;
+        let angle=(p/total)*2*Math.PI;
+
+        ctx.clearRect(0,0,300,300);
+        ctx.fillStyle="green";
+        ctx.beginPath();
+        ctx.moveTo(150,150);
+        ctx.arc(150,150,120,0,angle);
+        ctx.fill();
+
+        ctx.fillStyle="red";
+        ctx.beginPath();
+        ctx.moveTo(150,150);
+        ctx.arc(150,150,120,angle,2*Math.PI);
+        ctx.fill();
+
+        ctx.fillStyle="#000";
+        ctx.fillText("Present: "+p,10,20);
+        ctx.fillText("Absent: "+a,10,40);
+    }
+</script>
+
+</body>
+</html>

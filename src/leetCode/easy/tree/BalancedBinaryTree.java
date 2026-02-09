@@ -1,0 +1,42 @@
+package leetCode.easy.tree;
+
+/// 110. Balanced Binary Tree
+public class BalancedBinaryTree {
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {}
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(check(root)==-1)
+            return false;
+        return true;
+    }
+
+    private int check(TreeNode root) {
+        if (root==null){
+            return 0;
+        }
+        int left = check(root.left);
+        if (left == -1) return -1;
+
+        int right = check(root.right);
+        if (right == -1) return -1;
+        if (Math.abs(right-left)>1){
+            return -1;
+        }
+        return 1+Math.max(right,left);
+    }
+}

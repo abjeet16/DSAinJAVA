@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance System</title>
+
+    <style>
+        body{
+            font-family:Arial;
+            background:linear-gradient(135deg,#667eea,#764ba2);
+            padding:0;
+            margin:0;
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .navbar{
+            background:#fff;
+            padding:15px 30px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+        }
+        .navbar h2{
+            margin:0;
+            color:#667eea;
+        }
+        .nav-links a{
+            margin-left:20px;
+            text-decoration:none;
+            color:#333;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        .nav-links a:hover{
+            color:#667eea;
+        }
+
+        .container{
+            background:#fff;
+            padding:20px;
+            border-radius:10px;
+            max-width:1200px;
+            margin:30px auto;
+            box-shadow:0 10px 25px rgba(0,0,0,.2);
+            position:relative;
+        }
+
+        h2,h3{text-align:center}
+        input,select,button{
+            width:100%;
+            padding:10px;
+            margin:6px 0;
+            border-radius:5px;
+            border:1px solid #ccc
+        }
+        button{
+            background:#667eea;
+            color:#fff;
+            font-weight:bold;
+            border:none;
+            cursor:pointer
+        }
+        button:hover{background:#5a67d8}
+        .hidden{display:none}
+        .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+        .card{background:#f7f7f7;padding:15px;border-radius:8px}
+        .box{background:#fff;padding:8px;border-radius:5px;margin-bottom:6px}
+
+        .back-text{
+            position:absolute;
+            top:15px;
+            left:20px;
+            cursor:pointer;
+            color:#667eea;
+            font-weight:bold;
+        }
+        .back-text:hover{text-decoration:underline}
+
+        /* ---------- ABOUT ---------- */
+        .about{
+            margin-top:20px;
+            line-height:1.6;
+            color:#333;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR (ONLY FOR LOGIN PAGE) -->
+<div class="navbar" id="navbar">
+    <h2>Attendance System</h2>
+    <div class="nav-links">
+        <a onclick="showLogin()">Home</a>
+        <a onclick="showLogin()">Login</a>
+        <a onclick="toggleAbout()">About</a>
+    </div>
+</div>
+
+<!-- LOGIN -->
+<div class="container" id="loginBox">
+    <h2>Attendance Management System</h2>
+
+    <input id="loginId" placeholder="User ID / UUCMS">
+    <input id="loginPass" placeholder="Password" type="password">
+    <select id="loginRole">
+        <option value="admin">Admin</option>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+    </select>
+    <button onclick="login()">Login</button>
+
+    <!-- ABOUT SECTION -->
+    <div class="about hidden" id="aboutSection">
+        <h3>About This Project</h3>
+        <p>
+            This Attendance Management System is a web-based application
+            designed to simplify the process of managing student attendance.
+        </p>
+        <p>
+            <b>Admin</b> can add students and teachers with secure passwords.<br>
+            <b>Teachers</b> can mark attendance for students and submit it at once.<br>
+            <b>Students</b> can view their attendance records along with a visual pie chart.
+        </p>
+        <p>
+            The system is built using <b>HTML, CSS, and JavaScript</b> and stores
+            data locally using browser cookies. It demonstrates role-based access,
+            form validation, and basic data visualization.
+        </p>
+    </div>
+</div>
+
+<!-- ADMIN -->
+<div class="container hidden" id="adminBox">
+    <span class="back-text" onclick="goBack()">← Back</span>
+    <h2>Admin Dashboard</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Add Student</h3>
+            <input id="stuUucms" placeholder="UUCMS">
+            <input id="stuPass" placeholder="Password">
+            <button onclick="addStudent()">Add Student</button>
+        </div>
+
+        <div class="card">
+            <h3>Add Teacher</h3>
+            <input id="teachId" placeholder="Teacher ID">
+            <input id="teachPass" placeholder="Password" type="password">
+            <input id="teachSub" placeholder="Subject">
+            <button onclick="addTeacher()">Add Teacher</button>
+        </div>
+
+        <div class="card">
+            <h3>System Info</h3>
+            <p>Users & Attendance stored in Cookies</p>
+        </div>
+    </div>
+</div>
+
+<!-- TEACHER -->
+<div class="container hidden" id="teacherBox">
+    <span class="back-text" onclick="goBack()">← Back</span>
+    <h2>Teacher Dashboard</h2>
+    <select id="teacherSubject"></select>
+    <div id="studentList"></div>
+    <button onclick="submitAttendance()">Submit Attendance</button>
+</div>
+
+<!-- STUDENT -->
+<div class="container hidden" id="studentBox">
+    <span class="back-text" onclick="goBack()">← Back</span>
+    <h2>Student Dashboard</h2>
+    <canvas id="pie" width="300" height="300"></canvas>
+    <div id="studentAttendance"></div>
+</div>
+
+<script>
+    let currentUser="";
+    let tempAttendance={};
+
+    /* PASSWORD VALIDATION */
+    function isValidPassword(pwd){
+        return /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/.test(pwd);
+    }
+
+    function setData(key,val){
+        document.cookie = key+"="+encodeURIComponent(JSON.stringify(val))+
+            ";path=/;max-age="+(60*60*24*7);
+    }
+    function getCookie(name){
+        let v="; "+document.cookie;
+        let p=v.split("; "+name+"=");
+        return p.length===2 ? p.pop().split(";").shift() : null;
+    }
+    function getData(key){
+        let c=getCookie(key);
+        return c?JSON.parse(decodeURIComponent(c)):[];
+    }
+
+    function show(box){
+        loginBox.classList.add("hidden");
+        adminBox.classList.add("hidden");
+        teacherBox.classList.add("hidden");
+        studentBox.classList.add("hidden");
+        box.classList.remove("hidden");
+        navbar.style.display = box===loginBox ? "flex" : "none";
+    }
+
+    function goBack(){
+        currentUser="";
+        show(loginBox);
+    }
+
+    function showLogin(){
+        show(loginBox);
+    }
+
+    function toggleAbout(){
+        aboutSection.classList.toggle("hidden");
+    }
+
+    function login(){
+        let id=loginId.value;
+        let pass=loginPass.value;
+        let role=loginRole.value;
+
+        if(role==="admin"){
+            if(id!=="admin"||pass!=="admin")
+                return alert("Invalid admin credentials");
+            show(adminBox); return;
+        }
+
+        if(role==="student"){
+            let s=getData("students").find(x=>x.uucms===id&&x.pass===pass);
+            if(!s) return alert("Invalid login");
+            currentUser=id;
+            show(studentBox);
+            loadStudent();
+        }
+
+        if(role==="teacher"){
+            let t=getData("teachers").find(x=>x.id===id&&x.pass===pass);
+            if(!t) return alert("Invalid login");
+            currentUser=id;
+            show(teacherBox);
+            loadTeacher(t.subject);
+        }
+    }
+
+    function addStudent(){
+        if(!isValidPassword(stuPass.value))
+            return alert("Password must have 1 uppercase, 1 digit, 1 special & min 5 chars");
+        let s=getData("students");
+        s.push({uucms:stuUucms.value,pass:stuPass.value});
+        setData("students",s);
+        alert("Student added");
+        stuUucms.value=stuPass.value="";
+    }
+
+    function addTeacher(){
+        if(!isValidPassword(teachPass.value))
+            return alert("Password must have 1 uppercase, 1 digit, 1 special & min 5 chars");
+        let t=getData("teachers");
+        t.push({id:teachId.value,pass:teachPass.value,subject:teachSub.value});
+        setData("teachers",t);
+        alert("Teacher added");
+        teachId.value=teachPass.value=teachSub.value="";
+    }
+
+    function loadTeacher(subject){
+        teacherSubject.innerHTML=`<option>${subject}</option>`;
+        let students=getData("students");
+        studentList.innerHTML="";
+        tempAttendance={};
+
+        students.forEach(s=>{
+            tempAttendance[s.uucms]=null;
+            studentList.innerHTML+=`
+            <div class="box">
+                ${s.uucms}
+                <button onclick="selectStatus('${s.uucms}','Present',this)">Present</button>
+                <button onclick="selectStatus('${s.uucms}','Absent',this)">Absent</button>
+            </div>`;
+        });
+    }
+
+    function selectStatus(u,status,btn){
+        tempAttendance[u]=status;
+        btn.parentElement.querySelectorAll("button")
+            .forEach(b=>b.style.background="#aaa");
+        btn.style.background=status==="Present"?"green":"red";
+    }
+
+    function submitAttendance(){
+        let a=getData("attendance");
+        let subject=teacherSubject.value;
+        let date=new Date().toISOString().slice(0,10);
+
+        for(let u in tempAttendance){
+            if(tempAttendance[u])
+                a.push({student:u,subject,status:tempAttendance[u],date});
+        }
+        setData("attendance",a);
+        alert("Attendance submitted");
+    }
+
+    function loadStudent(){
+        let a=getData("attendance").filter(x=>x.student===currentUser);
+        let p=0,ab=0;
+        studentAttendance.innerHTML="";
+        a.forEach(r=>{
+            r.status==="Present"?p++:ab++;
+            studentAttendance.innerHTML+=
+                `<div class="box">${r.subject} | ${r.date} | ${r.status}</div>`;
+        });
+        drawPie(p,ab);
+    }
+
+    function drawPie(p,a){
+        let ctx=pie.getContext("2d");
+        let total=p+a||1;
+        let angle=(p/total)*2*Math.PI;
+        ctx.clearRect(0,0,300,300);
+        ctx.fillStyle="green";
+        ctx.beginPath();
+        ctx.moveTo(150,150);
+        ctx.arc(150,150,120,0,angle);
+        ctx.fill();
+        ctx.fillStyle="red";
+        ctx.beginPath();
+        ctx.moveTo(150,150);
+        ctx.arc(150,150,120,angle,2*Math.PI);
+        ctx.fill();
+    }
+</script>
+
+</body>
+</html>
