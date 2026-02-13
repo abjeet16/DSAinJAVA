@@ -5,33 +5,36 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/// 3719. Longest Balanced Subarray I
 public class LongestBalancedSubarray {
     public int longestBalanced(int[] nums) {
+        int n = nums.length;
+        int maxL = 0;
+        int freqL = Integer.MIN_VALUE;
+        for (int i : nums){
+            freqL = Math.max(freqL,i);
+        }
 
-        Set<Integer> seenEven = new HashSet<>();
-        Set<Integer> seenOdd = new HashSet<>();
-        Map<String, Integer> firstOccurrence = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            boolean[] freq = new boolean[freqL+1];
+            int even = 0;
+            int odd = 0;
 
-        int maxLen = 0;
-        String diffKey = "0#0";
-        firstOccurrence.put(diffKey, -1);
-        int len = nums.length;
+            for (int j = i; j < n; j++) {
+                if (!freq[nums[j]]){
+                    if (nums[j]%2==0)
+                        even++;
+                    else
+                        odd++;
+                    freq[nums[j]] = true;
+                }
 
-        for (int i = 0; i < len; i++) {
-            int num = nums[i];
-            if (num % 2 == 0) seenEven.add(num);
-            else seenOdd.add(num);
-
-            String key = seenEven.size() + "#" + seenOdd.size();
-
-            if (firstOccurrence.containsKey(key)) {
-                int prevIndex = firstOccurrence.get(key);
-                maxLen = Math.max(maxLen, i - prevIndex);
-            } else {
-                firstOccurrence.put(key, i);
+                if (even==odd) {
+                    maxL = Math.max(maxL, j - i + 1);
+                }
             }
         }
 
-        return maxLen;
+        return maxL;
     }
 }
