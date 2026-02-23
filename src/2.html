@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Window Methods Example</title>
+</head>
+<body>
+
+<h2>Window Object Methods Demo</h2>
+
+<button onclick="showAlert()">Alert</button>
+<button onclick="showConfirm()">Confirm</button>
+<button onclick="showPrompt()">Prompt</button>
+<button onclick="openNewWindow()">Open Window</button>
+<button onclick="closeNewWindow()">Close Window</button>
+<button onclick="moveWindow()">Move To</button>
+<button onclick="moveByWindow()">Move By</button>
+<button onclick="resizeWindow()">Resize Window</button>
+
+<p id="output"></p>
+
+<script>
+
+    let newWindow;  // store reference of opened window
+
+    // 1. Alert
+    function showAlert() {
+        window.alert("Hello, World!");
+    }
+
+    // 2. Confirm
+    function showConfirm() {
+        let userResponse = window.confirm("Are you sure?");
+        document.getElementById("output").innerHTML =
+            "Confirm Result: " + userResponse;
+    }
+
+    // 3. Prompt
+    function showPrompt() {
+        let name = window.prompt("Enter your name:");
+        document.getElementById("output").innerHTML =
+            "Hello, " + name;
+    }
+
+    // 4. Open new window
+    function openNewWindow() {
+        newWindow = window.open("https://google.com", "_blank",
+            "width=400,height=300");
+    }
+
+    // 5. Close new window
+    function closeNewWindow() {
+        if (newWindow) {
+            newWindow.close();
+        } else {
+            alert("No window opened!");
+        }
+    }
+
+    // 6. Move window to specific position
+    function moveWindow() {
+        window.moveTo(100, 100);
+    }
+
+    // 7. Move window relative to current position
+    function moveByWindow() {
+        window.moveBy(50, 50);
+    }
+
+    // 8. Resize window
+    function resizeWindow() {
+        window.resizeTo(800, 600);
+    }
+
+</script>
+
+</body>
+</html>

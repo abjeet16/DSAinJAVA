@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript String Methods Demo</title>
+</head>
+<body>
+
+<h2>JavaScript String Methods Demonstration</h2>
+
+<p id="output"></p>
+
+<script>
+
+    // 1️⃣ Declare a string and display it using innerHTML
+    let str = "Hello JavaScript World!";
+
+    let result = "<b>Original String:</b> " + str + "<br><br>";
+
+
+    // 2️⃣ String with special characters using backslash escape
+    let specialStr = "He said, \"JavaScript is amazing!\"";
+    result += "<b>String with Quotes:</b> " + specialStr + "<br><br>";
+
+
+    // 3️⃣ slice() Demonstration
+    result += "<b>slice() Method:</b><br>";
+
+    // No parameter
+    result += "slice(): " + str.slice() + "<br>";
+
+    // One parameter
+    result += "slice(6): " + str.slice(6) + "<br>";
+
+    // Two parameters
+    result += "slice(6,16): " + str.slice(6,16) + "<br>";
+
+    // Negative parameters
+    result += "slice(-6): " + str.slice(-6) + "<br><br>";
+
+
+    // 4️⃣ substr() Demonstration
+    result += "<b>substr() Method:</b><br>";
+
+    // No parameter
+    result += "substr(): " + str.substr() + "<br>";
+
+    // One parameter
+    result += "substr(6): " + str.substr(6) + "<br>";
+
+    // Two parameters
+    result += "substr(6,10): " + str.substr(6,10) + "<br>";
+
+    // Negative parameter
+    result += "substr(-6): " + str.substr(-6) + "<br><br>";
+
+
+    // 5️⃣ replace() and replaceAll()
+    result += "<b>replace() and replaceAll() Methods:</b><br>";
+
+    let text = "I love JavaScript. JavaScript is powerful.";
+
+    // replace() (only first occurrence)
+    result += "replace(): " + text.replace("JavaScript", "JS") + "<br>";
+
+    // replaceAll() (all occurrences)
+    result += "replaceAll(): " + text.replaceAll("JavaScript", "JS") + "<br>";
+
+
+    // Display all results using innerHTML
+    document.getElementById("output").innerHTML = result;
+
+</script>
+
+</body>
+</html>

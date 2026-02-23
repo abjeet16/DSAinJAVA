@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Embedded JavaScript Demonstration</title>
+</head>
+<body>
+
+<h2>1. Embedded JavaScript Example</h2>
+
+<p>I am part of the HTML document!</p>
+
+<script>
+    document.write("This came from my script, and is now on the page!<br>");
+</script>
+
+<p>I am also part of the HTML document, after the script results!</p>
+
+<hr>
+
+<h2>2. Prompt Example (User Name)</h2>
+<button onclick="getName()">Enter Your Name</button>
+
+<hr>
+
+<h2>3. Add Two Numbers using Prompt and Alert</h2>
+<button onclick="addNumbers()">Add Two Numbers</button>
+
+<hr>
+
+<h2>4(a). Fibonacci using document.write()</h2>
+<button onclick="showFibonacci()">Show Fibonacci</button>
+
+<h2>4(b). Table and Squares using Alert</h2>
+<button onclick="showSquares()">Show Squares</button>
+
+<script>
+
+    // 2️⃣ Prompt method
+    function getName() {
+        let name = prompt("Enter your name:");
+        alert("Hello " + name + "!");
+    }
+
+    // 3️⃣ Add two numbers
+    function addNumbers() {
+        let num1 = parseInt(prompt("Enter first number:"));
+        let num2 = parseInt(prompt("Enter second number:"));
+        let sum = num1 + num2;
+        alert("Sum = " + sum);
+    }
+
+    // 4(a) Fibonacci using document.write()
+    function showFibonacci() {
+        let n = parseInt(prompt("Enter number of Fibonacci terms:"));
+        let a = 0, b = 1, next;
+
+        document.write("<h3>Fibonacci Series:</h3>");
+        document.write(a + " " + b + " ");
+
+        for (let i = 2; i < n; i++) {
+            next = a + b;
+            document.write(next + " ");
+            a = b;
+            b = next;
+        }
+    }
+
+    // 4(b) Table and Squares using alert
+    function showSquares() {
+        let n = parseInt(prompt("Enter a number:"));
+        let output = "";
+
+        for (let i = 1; i <= n; i++) {
+            output += i + "  Square: " + (i * i) + "\n";
+        }
+
+        alert(output);
+    }
+
+</script>
+
+</body>
+</html>

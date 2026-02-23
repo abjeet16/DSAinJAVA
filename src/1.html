@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete DOM & Validation Example</title>
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        #box {
+            width: 150px;
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1 id="demo">DOM Manipulation Example</h1>
+
+<div id="box"
+     onclick="changeText()"
+     onmouseover="mouseOver()"
+     onmouseout="mouseOut()"
+     onmousedown="mouseDown()"
+     onmouseup="mouseUp()">
+    Click Me
+</div>
+
+<p class="intro">This is paragraph 1</p>
+<p class="intro" id="para">This is paragraph 2</p>
+
+<button onclick="manipulate()">Manipulate Elements</button>
+
+<hr>
+
+<h2>Form Validation</h2>
+
+<form onsubmit="return validateForm()">
+    Name: <input type="text" id="name"><br><br>
+    Age: <input type="text" id="age"><br><br>
+    Email: <input type="text" id="email"><br><br>
+    Password: <input type="password" id="password" oninput="checkPasswordStrength()"><br>
+    <span id="strength"></span><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<p id="message"></p>
+
+<script>
+
+    // Finding element by ID
+    const element = document.getElementById("demo");
+
+    // Finding by Tag Name
+    const paragraphs = document.getElementsByTagName("p");
+
+    // Finding by Class Name
+    const introClass = document.getElementsByClassName("intro");
+
+    // Change content
+    function changeText() {
+        element.innerHTML = "You Clicked the Box!";
+        element.style.color = "red";
+    }
+
+    // Mouse Events
+    function mouseOver() {
+        document.getElementById("box").style.backgroundColor = "orange";
+    }
+
+    function mouseOut() {
+        document.getElementById("box").style.backgroundColor = "lightblue";
+    }
+
+    function mouseDown() {
+        document.getElementById("box").innerHTML = "Mouse Down";
+    }
+
+    function mouseUp() {
+        document.getElementById("box").innerHTML = "Mouse Up";
+    }
+
+    // DOM Manipulation
+    function manipulate() {
+
+        let container = document.body;
+
+        // Create element
+        let newElement = document.createElement("p");
+        newElement.innerHTML = "This is a newly created paragraph.";
+
+        // Append element
+        container.appendChild(newElement);
+
+        // Remove element
+        let oldElement = document.getElementById("para");
+        container.removeChild(oldElement);
+
+        // Replace element
+        let replacedElement = document.createElement("h2");
+        replacedElement.innerHTML = "This is a replaced heading.";
+        container.replaceChild(replacedElement, newElement);
+
+        // Change attribute
+        element.setAttribute("class", "highlight");
+
+        // Change attribute value
+        element.style.color = "blue";
+
+        // Write to output stream
+        document.write("<p>This is written using document.write()</p>");
+    }
+
+    // Password Strength Check
+    function checkPasswordStrength() {
+        let password = document.getElementById("password").value;
+        let strengthText = document.getElementById("strength");
+
+        if (password.length < 6) {
+            strengthText.innerHTML = "Weak Password";
+            strengthText.className = "error";
+        } else if (password.match(/[A-Z]/) && password.match(/[0-9]/)) {
+            strengthText.innerHTML = "Strong Password";
+            strengthText.className = "success";
+        } else {
+            strengthText.innerHTML = "Medium Password";
+            strengthText.className = "highlight";
+        }
+    }
+
+    // Form Validation
+    function validateForm() {
+
+        let name = document.getElementById("name").value;
+        let age = document.getElementById("age").value;
+        let email = document.getElementById("email").value;
+        let message = document.getElementById("message");
+
+        // Required validation
+        if (name === "" || age === "" || email === "") {
+            alert("All fields are required!");
+            return false;
+        }
+
+        // Number validation
+        if (isNaN(age)) {
+            alert("Age must be a number!");
+            return false;
+        }
+
+        // Email validation
+        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.match(emailPattern)) {
+            alert("Invalid Email Format!");
+            return false;
+        }
+
+        message.innerHTML = "Form Submitted Successfully!";
+        message.className = "success";
+
+        return false; // prevent actual submit for demo
+    }
+
+</script>
+
+</body>
+</html>

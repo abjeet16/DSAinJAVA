@@ -7,28 +7,30 @@ import java.util.List;
 
 /// 40. Combination Sum II
 public class CombinationSum2 {
-    public List<List<Integer>> combinationSum2(int[] c, int t) {
-        List<List<Integer>> res = new ArrayList<>();
-        Arrays.sort(c); // important to handle duplicates
-        backtrack(res, c, t, 0, new ArrayList<>());
-        return res;
-    }
-
-    private void backtrack(List<List<Integer>> res, int[] c, int t, int idx, List<Integer> curr) {
-        if (t == 0) {
-            res.add(new ArrayList<>(curr));
+    public void solve(int[] candidates, int target, List<Integer> curr, List<List<Integer>> result, int idx) {
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            result.add(new ArrayList<>(curr));
             return;
         }
 
-        for (int i = idx; i < c.length; i++) {
-            // skip duplicates
-            if (i > idx && c[i] == c[i - 1]) continue;
-
-            if (c[i] > t) break;
-
-            curr.add(c[i]);
-            backtrack(res, c, t - c[i], i + 1, curr);
-            curr.remove(curr.size() - 1);
+        for (int i = idx; i < candidates.length; i++) {
+            if (i > idx && candidates[i] == candidates[i - 1]) {
+                continue; // Ignore duplicate elements
+            }
+            curr.add(candidates[i]);
+            solve(candidates, target - candidates[i], curr, result, i + 1);
+            curr.removeLast();
         }
+    }
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> curr = new ArrayList<>();
+        Arrays.sort(candidates); // Sort to handle duplicates
+        solve(candidates, target, curr, result, 0);
+        return result;
     }
 }
