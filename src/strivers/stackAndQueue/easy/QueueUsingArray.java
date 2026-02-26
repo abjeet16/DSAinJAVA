@@ -1,35 +1,52 @@
 package strivers.stackAndQueue.easy;
 
+import java.util.Arrays;
+
 public class QueueUsingArray {
     class myQueue {
+        int[] q;
+        int f, r, size, capacity;
 
         // Constructor
         public myQueue(int n) {
-            // Define Data Structures
+            capacity = n;
+            q = new int[n];
+            f = 0;
+            r = -1;
+            size = 0;
         }
 
         public boolean isEmpty() {
-            // Check if queue is empty
+            return size == 0;
         }
 
         public boolean isFull() {
-            // Check if queue is full
+            return size == capacity;
         }
 
         public void enqueue(int x) {
-            // Enqueue
+            if (isFull()) return;
+
+            r = (r + 1) % capacity;
+            q[r] = x;
+            size++;
         }
 
         public void dequeue() {
-            // Dequeue
+            if (isEmpty()) return;
+
+            f = (f + 1) % capacity;
+            size--;
         }
 
         public int getFront() {
-            // Get front element
+            if (isEmpty()) return -1;
+            return q[f];
         }
 
         public int getRear() {
-            // Get last element
+            if (isEmpty()) return -1;
+            return q[r];
         }
     }
 
